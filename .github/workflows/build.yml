@@ -45,7 +45,7 @@ jobs:
 
     # Build plugin and provide the artifact for the next workflow jobs
     - name: Build with Gradle
-      uses: gradle/gradle-build-action
+      uses: gradle/gradle-build-action@v2
       with:
         gradle-version: ${{ steps.project_properties.outputs.gradle-version }}
         arguments: build
