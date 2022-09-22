@@ -25,6 +25,18 @@ interface DomainEntity<T,ID>: DomainObject {
 interface ValueObject<T>: DomainObject
 
 /**
+ * A domain Repository is a gateway to the domain.
+ */
+interface Repository<T,ID> {
+
+    fun save(entity: T)
+
+    fun findById(id: ID): T?
+
+    fun findAll(): List<T>
+}
+
+/**
  * A domain Specification is a base interface that is satisfied by another domain object.
  */
 typealias Specification<T> = (t: T) -> Boolean
