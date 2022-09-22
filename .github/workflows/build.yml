@@ -1,0 +1,53 @@
+# Build workflow
+
+name: Gradle Build
+
+on:
+  # Trigger the workflow on pushes to only the 'main' branch (this avoids duplicate checks being run e.g. for dependabot pull requests)
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.sql'
+      - '**/*.xml'
+      - '**/*.yml'
+      - '**/*.sh'
+      - '**/Dockerfile'
+  # Trigger the workflow on any pull request on main
+  pull_request:
+    branches: ['dev']
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Fetch sources
+      - name: Fetch Sources
+        uses: actions/checkout@v3
+
+      # Validate wrapper
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+
+      # Read properties
+      - name: Read project properties
+        id: project_properties
+        uses: christian-draeger/read-properties@1.1.0
+        with:
+          path: './gradle.properties'
+          properties: 'gradle-version java-version'
+
+      # Setup JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ steps.project_properties.outputs.java-version }}
+          distribution: temurin
+
+      # Build plugin and provide the artifact for the next workflow jobs
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: ${{ steps.project_properties.outputs.gradle-version }}
+          arguments: build
