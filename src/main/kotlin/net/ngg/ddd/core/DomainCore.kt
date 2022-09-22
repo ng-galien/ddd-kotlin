@@ -1,5 +1,8 @@
 package net.ngg.ddd.core
 
+/**
+ * Common interface for all domain objets.
+ */
 interface DomainObject
 
 /**
