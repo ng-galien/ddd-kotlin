@@ -14,21 +14,40 @@ on:
       - '**/Dockerfile'
   # Trigger the workflow on any pull request on main
   pull_request:
-    branches: ['main']
+    branches: ['dev']
 
 jobs:
   build:
-
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 11
+
+      # Fetch sources
+      - name: Fetch Sources
+        uses: actions/checkout@v3
+
+      - name: Read project properties
+        id: project_properties
+        uses: christian-draeger/read-properties@1.1.0
+        with:
+          path: gradle.properties
+          properties: 'gradle-version java-version'
+
+      # Validate wrapper
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+
+      # Setup Java 11 environment for the next steps
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: ${{ steps.project_properties.outputs.java-version }}
+          distribution: temurin
+
+      # Build plugin and provide the artifact for the next workflow jobs
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        uses: gradle/gradle-build-action
         with:
+          gradle-version: ${{ steps.project_properties.outputs.gradle-version }}
           arguments: build

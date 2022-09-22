@@ -1,23 +1,31 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+fun properties(key: String) = project.findProperty(key).toString()
+
+
 plugins {
     kotlin("jvm") version "1.7.10"
     jacoco
     `maven-publish`
+    id("org.jetbrains.changelog") version "1.3.1"
 }
 
-group = "net.ngg"
-version = "1.0-SNAPSHOT"
+group = properties("project-group")
+version = properties("project-version")
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    testImplementation(kotlin("test"))
 }
 
 publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/ngglien/ddd-kotlin")
+            url = uri("https://maven.pkg.github.com/ng-glien/ddd-kotlin")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
@@ -26,8 +34,9 @@ publishing {
     }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
+changelog {
+    version.set(properties("project-version"))
+    groups.set(emptyList())
 }
 
 tasks.test {
@@ -35,5 +44,9 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = properties("java-version")
+}
+
+tasks.wrapper {
+    gradleVersion = properties("gradle-version")
 }
