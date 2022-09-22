@@ -15,7 +15,7 @@ interface DomainEvent<T>: DomainObject
  * A domain Entity is a persistent object that is identified by its unique id.
  * It's unique
  */
-interface DomainEntity<T,ID>: DomainObject {
+interface DomainEntity<ID, T>: DomainObject {
     fun id(): ID
 }
 
@@ -27,13 +27,23 @@ interface ValueObject<T>: DomainObject
 /**
  * A domain Repository is a gateway to the domain.
  */
-interface Repository<T,ID> {
+interface Repository<ID, T: DomainEntity<ID, T>> {
 
     fun save(entity: T)
 
     fun findById(id: ID): T?
 
+    fun existsById(id: ID): Boolean
+
     fun findAll(): List<T>
+
+    fun count(): Long
+
+    fun delete(entity: T)
+
+    fun deleteById(id: ID)
+
+    fun deleteAll()
 }
 
 /**
@@ -54,7 +64,7 @@ fun <K, T: ValueObject<K>> T.sameValueAs(other: T): Boolean = this == other
 /**
  * Checks if the given entity is the same as this one.
  */
-fun <K, ID, T: DomainEntity<K, ID>> T.sameIdentityAs(other: T): Boolean = this.id() == other.id()
+fun <ID, T: DomainEntity<ID, T>> T.sameIdentityAs(other: T): Boolean = this.id() == other.id()
 
 /**
  * A domain object can be satisfied by a specification.
