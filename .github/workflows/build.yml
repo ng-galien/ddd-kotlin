@@ -25,6 +25,11 @@ jobs:
     # Fetch sources
     - name: Fetch Sources
       uses: actions/checkout@v3
+
+    # Validate wrapper
+    - name: Gradle Wrapper Validation
+      uses: gradle/wrapper-validation-action@v1.0.4
+
     # Read properties
     - name: Read project properties
       id: project_properties
@@ -32,9 +37,6 @@ jobs:
       with:
         path: './gradle.properties'
         properties: 'gradle-version java-version'
-    # Validate wrapper
-    - name: Gradle Wrapper Validation
-      uses: gradle/wrapper-validation-action@v1.0.4
 
     # Setup Java 11 environment for the next steps
     - name: Set up JDK
