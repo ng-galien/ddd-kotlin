@@ -56,7 +56,9 @@ fun <K, T: ValueObject<K>> T.sameValueAs(other: T): Boolean = this == other
  */
 fun <K, ID, T: DomainEntity<K, ID>> T.sameIdentityAs(other: T): Boolean = this.id() == other.id()
 
-
+/**
+ * A domain object can be satisfied by a specification.
+ */
 fun <T: DomainObject> T.satisfy(specification: Specification<T>): Boolean = specification(this)
 
 /**
