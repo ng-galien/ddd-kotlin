@@ -22,5 +22,4 @@ class DomainEventTest {
         val saleEvent2 = SaleEvent("2", "name", 10.0, 1)
         Assertions.assertFalse(saleEvent1.sameEventAs(saleEvent2))
     }
-
 }

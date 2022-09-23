@@ -12,7 +12,6 @@ data class BankAccount(val owner: Person, val balance: Int) : DomainEntity<BankA
     override val id: Id = Id.generate()
 }
 
-
 class DomainEntityTest {
 
     @Test
