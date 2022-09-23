@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-data class Product(val id: Int, val name: String, val price: Double):
-    DomainEntity<Product> {
-    override fun id() = Id(id.toString())
+data class Product(val productId: Int, val name: String, val price: Double): DomainEntity<Product> {
+    override val id = Id(productId.toString())
 }
 
 val expensive: Specification<Product> = { it.price > 100.0 }
