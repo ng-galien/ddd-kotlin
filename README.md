@@ -24,10 +24,10 @@ An entity is an object that is not defined by its attributes, but rather by a th
 
 An aggregate is a cluster of associated objects that we treat as a unit for the purpose of data changes.
 
-## Repository
+### Repository
 
 A repository is an object that encapsulates the set of objects persisted in a data store and the operations performed over them, providing a more object-oriented view of the persistence layer.
 
-## DomainEvent
+### DomainEvent
 
 A domain event is an event that occurs in the domain and that is important to the domain.
