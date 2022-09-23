@@ -20,7 +20,7 @@ A value object is an object that represents a value, which does not have an iden
 
 An entity is an object that is not defined by its attributes, but rather by a thread of continuity and its identity.
 
-## Aggregate
+### Aggregate
 
 An aggregate is a cluster of associated objects that we treat as a unit for the purpose of data changes.
 
