@@ -12,11 +12,11 @@ Implements strategic classes and interfaces to build a DDD application.
 
 ## Strategic classes
 
-## ValueObject
+### ValueObject
 
 A value object is an object that represents a value, which does not have an identity.
 
-## Entity
+### Entity
 
 An entity is an object that is not defined by its attributes, but rather by a thread of continuity and its identity.
 
