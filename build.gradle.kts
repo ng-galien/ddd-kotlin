@@ -34,7 +34,7 @@ publishing {
             create<MavenPublication>("github") {
                 groupId = properties("project-group")
                 artifactId = properties("project-artifact")
-                version = properties("project-version")
+                version = System.getenv("TAG_NAME") ?: properties("project-version")
                 from(components["java"])
                 pom {
                     name.set(properties("project-name"))

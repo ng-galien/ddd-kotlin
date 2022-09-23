@@ -39,9 +39,12 @@ jobs:
           java-version: ${{ steps.project_properties.outputs.java-version }}
           distribution: temurin
 
+      # Publish to GitHub Packages
       - name: Publish package
         uses: gradle/gradle-build-action@v2
         with:
+          gradle-version: ${{ steps.project_properties.outputs.gradle-version }}
           arguments: publish
         env:
+          TAG_NAME: ${{ github.ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

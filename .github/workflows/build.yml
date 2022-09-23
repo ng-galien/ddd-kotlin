@@ -45,7 +45,7 @@ jobs:
           java-version: ${{ steps.project_properties.outputs.java-version }}
           distribution: temurin
 
-      # Build plugin and provide the artifact for the next workflow jobs
+      # Build the artifact
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
