@@ -8,9 +8,9 @@ Core library for DDD in Kotlin.
 
 > Copilot is the main contributor of this project.
 
-Implements strategic classes and interfaces to build a DDD application.
-
 ## Strategic classes
+
+Implements strategic classes and interfaces to build a DDD application.
 
 ### ValueObject
 
