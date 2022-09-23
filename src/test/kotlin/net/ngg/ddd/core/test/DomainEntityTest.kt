@@ -4,8 +4,12 @@ import net.ngg.ddd.core.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-data class Person(val name: String, var age: Int) : DomainEntity<String, Person> {
-    override fun id(): String = name
+data class Person(val name: String, var age: Int) : DomainEntity<Person> {
+    override fun id(): Id = Id(name)
+}
+
+data class BankAccount(val owner: Person, val balance: Int) : DomainEntity<BankAccount> {
+    override fun id(): Id = Id.random()
 }
 
 
@@ -25,5 +29,13 @@ class DomainEntityTest {
         val person1 = Person("John", 30)
         val person2 = Person("Jane", 30)
         Assertions.assertFalse(person1.sameIdentityAs(person2))
+    }
+
+    @Test
+    fun `should not be equal when id is not equal and one of them is transient`() {
+        val person1 = Person("John", 30)
+        val bankAccount = BankAccount(person1, 100)
+        val bankAccount2 = BankAccount(person1, 100)
+        Assertions.assertFalse(bankAccount.sameIdentityAs(bankAccount2))
     }
 }

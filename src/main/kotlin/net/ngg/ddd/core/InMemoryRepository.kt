@@ -9,21 +9,20 @@ package net.ngg.ddd.core
  * Stores the entities in a map.
  *
  * @param T the type of the entity
- * @param ID the type of the entity's id
  */
-class InMemoryRepository<ID, T: DomainEntity<ID, T>>: Repository<ID, T> {
+class InMemoryRepository<T: DomainEntity<T>>: Repository<T> {
 
-    private val entities = mutableMapOf<ID, T>()
+    private val entities = mutableMapOf<Id, T>()
 
     override fun save(entity: T) {
         entities[entity.id()] = entity
     }
 
-    override fun findById(id: ID): T? {
+    override fun findById(id: Id): T? {
         return entities[id]
     }
 
-    override fun existsById(id: ID): Boolean {
+    override fun existsById(id: Id): Boolean {
         return entities.containsKey(id)
     }
 
@@ -39,7 +38,7 @@ class InMemoryRepository<ID, T: DomainEntity<ID, T>>: Repository<ID, T> {
         entities.clear()
     }
 
-    override fun deleteById(id: ID) {
+    override fun deleteById(id: Id) {
         entities.remove(id)
     }
 

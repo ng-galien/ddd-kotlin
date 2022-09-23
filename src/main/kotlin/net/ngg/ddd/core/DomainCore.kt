@@ -5,6 +5,15 @@
 package net.ngg.ddd.core
 
 /**
+ * Identifies a domain entity.
+ */
+@JvmInline
+value class Id( val value: String) {
+    companion object {
+        fun random() = Id(java.util.UUID.randomUUID().toString())
+    }
+}
+/**
  * Common interface for all domain objets.
  */
 interface DomainObject
@@ -19,8 +28,8 @@ interface DomainEvent<T>: DomainObject
  * A domain Entity is a persistent object that is identified by its unique id.
  * It's unique
  */
-interface DomainEntity<ID, T>: DomainObject {
-    fun id(): ID
+interface DomainEntity<T>: DomainObject {
+    fun id(): Id
 }
 
 /**
@@ -31,13 +40,13 @@ interface ValueObject<T>: DomainObject
 /**
  * A domain Repository is a gateway to the domain.
  */
-interface Repository<ID, T: DomainEntity<ID, T>> {
+interface Repository<T: DomainEntity<T>> {
 
     fun save(entity: T)
 
-    fun findById(id: ID): T?
+    fun findById(id: Id): T?
 
-    fun existsById(id: ID): Boolean
+    fun existsById(id: Id): Boolean
 
     fun findAll(): List<T>
 
@@ -45,9 +54,16 @@ interface Repository<ID, T: DomainEntity<ID, T>> {
 
     fun delete(entity: T)
 
-    fun deleteById(id: ID)
+    fun deleteById(id: Id)
 
     fun deleteAll()
+}
+
+/**
+ * Aggregate is a cluster of domain objects that can be treated as a single unit.
+ */
+interface Aggregate<T: DomainEntity<T>>: DomainObject {
+    fun root(): T
 }
 
 /**
@@ -68,7 +84,7 @@ fun <K, T: ValueObject<K>> T.sameValueAs(other: T): Boolean = this == other
 /**
  * Checks if the given entity is the same as this one.
  */
-fun <ID, T: DomainEntity<ID, T>> T.sameIdentityAs(other: T): Boolean = this.id() == other.id()
+fun <T: DomainEntity<T>> T.sameIdentityAs(other: T): Boolean = this.id() == other.id()
 
 /**
  * A domain object can be satisfied by a specification.
