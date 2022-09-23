@@ -1,5 +1,10 @@
 fun properties(key: String) = project.findProperty(key).toString()
 
+fun versionFromTag(): String  {
+    val version = System.getenv("TAG_NAME") ?: properties("project-version")
+    return version.replace("v", "")
+}
+
 plugins {
     kotlin("jvm") version "1.7.10"
     jacoco
@@ -33,7 +38,7 @@ publishing {
             create<MavenPublication>("github") {
                 groupId = properties("project-group")
                 artifactId = properties("project-artifact")
-                version = System.getenv("TAG_NAME") ?: properties("project-version")
+                version = versionFromTag()
                 from(components["java"])
                 pom {
                     name.set(properties("project-name"))
