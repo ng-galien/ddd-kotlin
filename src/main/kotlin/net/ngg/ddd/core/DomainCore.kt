@@ -10,7 +10,7 @@ package net.ngg.ddd.core
 @JvmInline
 value class Id( val value: String) {
     companion object {
-        fun random() = Id(java.util.UUID.randomUUID().toString())
+        fun generate() = Id(java.util.UUID.randomUUID().toString())
     }
 }
 /**
@@ -29,7 +29,7 @@ interface DomainEvent<T>: DomainObject
  * It's unique
  */
 interface DomainEntity<T>: DomainObject {
-    fun id(): Id
+    val id: Id
 }
 
 /**
@@ -84,7 +84,7 @@ fun <K, T: ValueObject<K>> T.sameValueAs(other: T): Boolean = this == other
 /**
  * Checks if the given entity is the same as this one.
  */
-fun <T: DomainEntity<T>> T.sameIdentityAs(other: T): Boolean = this.id() == other.id()
+fun <T: DomainEntity<T>> T.sameIdentityAs(other: T): Boolean = this.id == other.id
 
 /**
  * A domain object can be satisfied by a specification.

@@ -15,7 +15,7 @@ class InMemoryRepository<T: DomainEntity<T>>: Repository<T> {
     private val entities = mutableMapOf<Id, T>()
 
     override fun save(entity: T) {
-        entities[entity.id()] = entity
+        entities[entity.id] = entity
     }
 
     override fun findById(id: Id): T? {
@@ -43,6 +43,6 @@ class InMemoryRepository<T: DomainEntity<T>>: Repository<T> {
     }
 
     override fun delete(entity: T) {
-        entities.remove(entity.id())
+        entities.remove(entity.id)
     }
 }

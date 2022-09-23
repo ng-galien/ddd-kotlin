@@ -7,8 +7,8 @@ import net.ngg.ddd.core.sameIdentityAs
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-data class Customer(val id: String, val name: String): DomainEntity<Customer> {
-    override fun id(): Id = Id(id)
+data class Customer(val partnerID: String, val name: String): DomainEntity<Customer> {
+    override val id: Id = Id(partnerID)
 }
 
 class InMemoryRepositoryTest {
@@ -18,8 +18,10 @@ class InMemoryRepositoryTest {
         val repository = InMemoryRepository<Customer>()
         val customer = Customer("1", "John Doe")
         repository.save(customer)
-        val retrievedCustomer = repository.findById(Id("1"))
+        val retrievedCustomer = repository.findById(customer.id)
         Assertions.assertTrue(retrievedCustomer?.sameIdentityAs(customer) ?: false)
+        val retrievedCustomer2 = repository.findById(Id("1"))
+        Assertions.assertTrue(retrievedCustomer2?.sameIdentityAs(customer) ?: false)
     }
 
     @Test

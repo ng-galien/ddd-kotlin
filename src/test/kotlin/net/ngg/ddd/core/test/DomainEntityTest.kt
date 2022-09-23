@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 data class Person(val name: String, var age: Int) : DomainEntity<Person> {
-    override fun id(): Id = Id(name)
+    override val id: Id = Id(name)
 }
 
 data class BankAccount(val owner: Person, val balance: Int) : DomainEntity<BankAccount> {
-    override fun id(): Id = Id.random()
+    override val id: Id = Id.generate()
 }
 
 
