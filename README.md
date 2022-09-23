@@ -4,10 +4,13 @@
 ![release workflow](https://github.com/ng-galien/ddd-kotlin/actions/workflows/release-drafter.yml/badge.svg)
 ![publish workflow](https://github.com/ng-galien/ddd-kotlin/actions/workflows/publish.yml/badge.svg)
 
-Core library for DDD in Kotlin.  
-Implements strategic classes and interfaces to build a DDD application.  
+Core library for DDD in Kotlin.
 
 > Copilot is the main contributor of this project.
+
+Implements strategic classes and interfaces to build a DDD application.
+
+## Strategic classes
 
 ## ValueObject
 
