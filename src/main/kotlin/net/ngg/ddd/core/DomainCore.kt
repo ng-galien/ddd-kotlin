@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022.
+ */
+
 package net.ngg.ddd.core
 
 /**
@@ -82,7 +86,7 @@ fun <T> Specification<T>.and(other: Specification<T>): Specification<T> = { this
 fun <T> Specification<T>.or(other: Specification<T>): Specification<T> = { this(it) || other(it) }
 
 /**
- * Negates a specification.
+ * Chains a negates a specification.
  */
 fun <T> not(candidate: Specification<T>): Specification<T> = { !candidate(it) }
 

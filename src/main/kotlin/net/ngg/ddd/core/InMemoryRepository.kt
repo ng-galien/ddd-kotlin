@@ -1,7 +1,15 @@
+/*
+ * Copyright (c) 2022.
+ */
+
 package net.ngg.ddd.core
 
 /**
- * A marker interface for all domain events.
+ * Default implementation of the repository interface.
+ * Stores the entities in a map.
+ *
+ * @param T the type of the entity
+ * @param ID the type of the entity's id
  */
 class InMemoryRepository<ID, T: DomainEntity<ID, T>>: Repository<ID, T> {
 
