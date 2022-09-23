@@ -1,5 +1,8 @@
 package net.ngg.ddd.core
 
+/**
+ * A marker interface for all domain events.
+ */
 class InMemoryRepository<ID, T: DomainEntity<ID, T>>: Repository<ID, T> {
 
     private val entities = mutableMapOf<ID, T>()
