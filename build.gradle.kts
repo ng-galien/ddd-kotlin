@@ -4,7 +4,6 @@ plugins {
     kotlin("jvm") version "1.7.10"
     jacoco
     `maven-publish`
-    id("org.jetbrains.changelog") version "1.3.1"
 }
 
 group = properties("project-group")
@@ -62,11 +61,6 @@ publishing {
             }
         }
     }
-}
-
-changelog {
-    version.set(properties("project-version"))
-    groups.set(emptyList())
 }
 
 tasks.test {
