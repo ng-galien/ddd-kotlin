@@ -46,5 +46,4 @@ class InMemoryRepository<ID, T: DomainEntity<ID, T>>: Repository<ID, T> {
     override fun delete(entity: T) {
         entities.remove(entity.id())
     }
-
 }
