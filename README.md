@@ -19,7 +19,7 @@ An entity is an object that is not defined by its attributes, but rather by a th
 
 ## Aggregate
 
-Not implemented yet.
+An aggregate is a cluster of associated objects that we treat as a unit for the purpose of data changes.
 
 ## Repository
 
