@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 data class Product(val id: Int, val name: String, val price: Double):
-    DomainEntity<Product, Int> {
+    DomainEntity<Int, Product> {
     override fun id() = id
 }
 

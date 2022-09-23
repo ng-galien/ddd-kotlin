@@ -4,7 +4,7 @@ import net.ngg.ddd.core.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-data class Person(val name: String, var age: Int) : DomainEntity<Person, String> {
+data class Person(val name: String, var age: Int) : DomainEntity<String, Person> {
     override fun id(): String = name
 }
 
