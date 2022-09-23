@@ -11,6 +11,7 @@ class ValueObjectTest {
     @Test
     fun `should be equal`() {
         val location1 = Location(1, 2)
+        assertTrue(location1.sameValueAs(location1))
         val location2 = Location(1, 2)
         assertTrue(location1.sameValueAs(location2))
     }
